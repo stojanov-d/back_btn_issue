@@ -6,15 +6,23 @@ part of 'routes.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [
-  $homeRoute,
-  $detailsRoute,
-  $moreDetailsRoute,
-  $evenMoreDetailsRoute,
-];
+List<RouteBase> get $appRoutes => [$homeRoute];
 
-RouteBase get $homeRoute =>
-    GoRouteData.$route(path: '/', factory: $HomeRoute._fromState);
+RouteBase get $homeRoute => GoRouteData.$route(
+  path: '/',
+  factory: $HomeRoute._fromState,
+  routes: [
+    GoRouteData.$route(path: 'details', factory: $DetailsRoute._fromState),
+    GoRouteData.$route(
+      path: 'more_details/:id',
+      factory: $MoreDetailsRoute._fromState,
+    ),
+    GoRouteData.$route(
+      path: 'even_more_details/:id',
+      factory: $EvenMoreDetailsRoute._fromState,
+    ),
+  ],
+);
 
 mixin $HomeRoute on GoRouteData {
   static HomeRoute _fromState(GoRouterState state) => HomeRoute();
@@ -36,9 +44,6 @@ mixin $HomeRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $detailsRoute =>
-    GoRouteData.$route(path: '/details', factory: $DetailsRoute._fromState);
-
 mixin $DetailsRoute on GoRouteData {
   static DetailsRoute _fromState(GoRouterState state) => DetailsRoute();
 
@@ -59,11 +64,6 @@ mixin $DetailsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $moreDetailsRoute => GoRouteData.$route(
-  path: '/details/:id',
-  factory: $MoreDetailsRoute._fromState,
-);
-
 mixin $MoreDetailsRoute on GoRouteData {
   static MoreDetailsRoute _fromState(GoRouterState state) =>
       MoreDetailsRoute(id: state.pathParameters['id']!);
@@ -72,7 +72,7 @@ mixin $MoreDetailsRoute on GoRouteData {
 
   @override
   String get location =>
-      GoRouteData.$location('/details/${Uri.encodeComponent(_self.id)}');
+      GoRouteData.$location('/more_details/${Uri.encodeComponent(_self.id)}');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -88,11 +88,6 @@ mixin $MoreDetailsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $evenMoreDetailsRoute => GoRouteData.$route(
-  path: '/evenmoredetails/:id',
-  factory: $EvenMoreDetailsRoute._fromState,
-);
-
 mixin $EvenMoreDetailsRoute on GoRouteData {
   static EvenMoreDetailsRoute _fromState(GoRouterState state) =>
       EvenMoreDetailsRoute(id: state.pathParameters['id']!);
@@ -101,7 +96,7 @@ mixin $EvenMoreDetailsRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location(
-    '/evenmoredetails/${Uri.encodeComponent(_self.id)}',
+    '/even_more_details/${Uri.encodeComponent(_self.id)}',
   );
 
   @override

@@ -4,19 +4,23 @@ import 'package:go_router/go_router.dart';
 
 part 'routes.g.dart';
 
-@TypedGoRoute<HomeRoute>(path: '/')
+@TypedGoRoute<HomeRoute>(path: '/',
+routes: <TypedGoRoute<GoRouteData>>[
+  TypedGoRoute<DetailsRoute>(path: "details"),
+  TypedGoRoute<MoreDetailsRoute>(path: "more_details/:id"),
+  TypedGoRoute<EvenMoreDetailsRoute>(path: "even_more_details/:id"),
+])
+
 class HomeRoute extends GoRouteData with $HomeRoute{
   @override
   Widget build(BuildContext context, GoRouterState state) => const HomeScreen();
 }
 
-@TypedGoRoute<DetailsRoute>(path: '/details')
 class DetailsRoute extends GoRouteData with $DetailsRoute{
   @override
   Widget build(BuildContext context, GoRouterState state) => const DetailsScreen();
 }
 
-@TypedGoRoute<MoreDetailsRoute>(path: '/details/:id')
 class MoreDetailsRoute extends GoRouteData with $MoreDetailsRoute{
   const MoreDetailsRoute({required this.id});
 
@@ -25,11 +29,10 @@ class MoreDetailsRoute extends GoRouteData with $MoreDetailsRoute{
   Widget build(BuildContext context, GoRouterState state) => MoreDetailsScreen(id: id);
 }
 
-@TypedGoRoute<EvenMoreDetailsRoute>(path: '/evenmoredetails/:id')
 class EvenMoreDetailsRoute extends GoRouteData with $EvenMoreDetailsRoute{
   const EvenMoreDetailsRoute({required this.id});
 
   final String id;
   @override
-  Widget build(BuildContext context, GoRouterState state) => MoreDetailsScreen(id: id);
+  Widget build(BuildContext context, GoRouterState state) => EvenMoreDetailsScreen(id: id);
 }

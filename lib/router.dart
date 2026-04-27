@@ -1,4 +1,3 @@
-import 'package:back_btn_issue/main.dart';
 import 'package:back_btn_issue/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
